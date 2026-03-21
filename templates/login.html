@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+
+<h2>Login</h2>
+
+<input id="username" placeholder="Username"><br><br>
+<input id="password" type="password" placeholder="Password"><br><br>
+
+<button onclick="login()">Login</button>
+<button onclick="signup()">Signup</button>
+
+<script>
+async function signup() {
+    const res = await fetch("/signup", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            username: document.getElementById("username").value,
+            password: document.getElementById("password").value
+        })
+    });
+
+    const data = await res.json();
+    alert(JSON.stringify(data));
+}
+
+async function login() {
+    const res = await fetch("/login", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            username: document.getElementById("username").value,
+            password: document.getElementById("password").value
+        })
+    });
+
+    if (res.status !== 200) {
+        alert("Login failed");
+        return;
+    }
+
+    const data = await res.json();
+    localStorage.setItem("token", data.token);
+
+    window.location.href = "/chat";
+}
+</script>
+
+</body>
+</html>

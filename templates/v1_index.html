@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Local AI</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<style>
+
+body{
+background:#343541;
+color:white;
+font-family:Arial;
+margin:0;
+}
+
+#chat{
+height:85vh;
+overflow-y:auto;
+padding:20px;
+}
+
+.message{
+padding:12px;
+margin:10px;
+border-radius:8px;
+max-width:70%;
+}
+
+.user{
+background:#444654;
+margin-left:auto;
+}
+
+.ai{
+background:#202123;
+}
+
+#input{
+position:fixed;
+bottom:0;
+width:100%;
+background:#202123;
+padding:10px;
+display:flex;
+gap:10px;
+}
+
+textarea{
+flex:1;
+height:60px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="chat"></div>
+
+<div id="input">
+
+<select id="model"></select>
+
+<textarea id="prompt"></textarea>
+
+<button onclick="send()">Send</button>
+
+</div>
+
+<script src="/static/app.js"></script>
+
+</body>
+</html>
