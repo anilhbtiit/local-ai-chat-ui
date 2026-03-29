@@ -1,8 +1,12 @@
 const chat = document.getElementById("chat");
 const promptBox = document.getElementById("prompt");
 const modelSelect = document.getElementById("model");
+const useRagCheckbox = document.getElementById("useRag");
+const fileInput = document.getElementById("fileInput");
 const sendBtn = document.getElementById("sendBtn");
 const stopBtn = document.getElementById("stopBtn");
+const uploadBtn = document.getElementById("uploadBtn");
+const ingestDirBtn = document.getElementById("ingestDirBtn");
 let currentAbortController = null;
 let isGenerating = false;
 
@@ -95,7 +99,8 @@ async function send() {
       body: JSON.stringify({
         model: modelSelect.value,
         prompt: text,
-        conversation_id: currentConversation
+        conversation_id: currentConversation,
+        use_rag: !!(useRagCheckbox && useRagCheckbox.checked)
       })
     });
 
@@ -135,6 +140,84 @@ async function send() {
   } finally {
     currentAbortController = null;
     setGeneratingState(false);
+  }
+}
+
+async function uploadFile() {
+  if (!fileInput) return;
+
+  if (!fileInput.files || fileInput.files.length === 0) {
+    fileInput.click();
+    return;
+  }
+
+  const file = fileInput.files[0];
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/login";
+    return;
+  }
+
+  const form = new FormData();
+  form.append("file", file);
+
+  if (uploadBtn) uploadBtn.disabled = true;
+  try {
+    const r = await fetch("/upload", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + token
+      },
+      body: form
+    });
+
+    const data = await r.json();
+    if (!r.ok) {
+      throw new Error(data.detail || "Upload failed");
+    }
+
+    alert(`Uploaded ${data.file} (${data.chunks} chunks indexed)`);
+    fileInput.value = "";
+  } catch (e) {
+    alert(`Upload failed: ${e.message}`);
+  } finally {
+    if (uploadBtn) uploadBtn.disabled = false;
+  }
+}
+
+if (fileInput) {
+  fileInput.addEventListener("change", () => {
+    if (fileInput.files && fileInput.files.length > 0) {
+      uploadFile();
+    }
+  });
+}
+
+async function ingestDirectory() {
+  const path = prompt("Enter absolute directory path to index for RAG:");
+  if (!path) return;
+
+  const headers = getAuthHeaders();
+  if (!headers) return;
+
+  if (ingestDirBtn) ingestDirBtn.disabled = true;
+  try {
+    const r = await fetch("/upload-directory", {
+      method: "POST",
+      headers,
+      body: JSON.stringify({ path })
+    });
+    const data = await r.json();
+    if (!r.ok) {
+      throw new Error(data.detail || "Directory ingest failed");
+    }
+    alert(
+      `Indexed files: ${data.ingested_files}, chunks: ${data.total_chunks}, errors: ${data.errors.length}`
+    );
+  } catch (e) {
+    alert(`Directory ingest failed: ${e.message}`);
+  } finally {
+    if (ingestDirBtn) ingestDirBtn.disabled = false;
   }
 }
 

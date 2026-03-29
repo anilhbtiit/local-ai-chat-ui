@@ -16,13 +16,20 @@
     <div id="chat"></div>
     <div class="input">
       <select id="model"></select>
+      <label class="rag-toggle">
+        <input type="checkbox" id="useRag" />
+        Use RAG
+      </label>
+      <input type="file" id="fileInput" style="display:none" />
+      <button id="uploadBtn" onclick="uploadFile()">Upload Doc</button>
+      <button id="ingestDirBtn" onclick="ingestDirectory()">Ingest Dir</button>
       <textarea id="prompt" placeholder="Type your message..."></textarea>
       <button id="sendBtn" onclick="send()">Send</button>
       <button id="stopBtn" onclick="stopGeneration()" disabled>Stop</button>
     </div>
   </div>
 
-  <script src="/static/app.js?v=3"></script>
-  <script src="/static/sidebar.js?v=3"></script>
+  <script src="/static/app.js?v=5"></script>
+  <script src="/static/sidebar.js?v=5"></script>
 </body>
 </html>

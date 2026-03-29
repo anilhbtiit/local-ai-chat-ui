@@ -65,6 +65,7 @@ body {
 
 .input {
   display: flex;
+  align-items: center;
   padding: 10px;
   gap: 8px;
   border-top: 1px solid #ddd;
@@ -80,4 +81,12 @@ textarea {
   min-height: 44px;
   max-height: 160px;
   resize: none;
+}
+
+.rag-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  font-size: 14px;
 }
