@@ -1,0 +1,42 @@
+Start WSL cursor:
+
+Open Cursor
+→ Ctrl+Shift+P
+→ Remote-WSL: New WSL Window
+→ Open /home/chaha/
+→ conda activate cppjupyter
+→ open .ipynb
+→ C++17 kernel
+
+Launch Cursor from Start menu
+Open WSL window in Cursor
+	Ctrl + Shift + P
+	Remote-WSL: New WSL Window
+Cursor will reload itself inside WSL
+Bottom-left corner MUST show:
+	WSL: Ubuntu
+Open a Linux folder
+	File → Open Folder
+	C:\Users\chaha\Project\DS_Algo
+Activate your Conda env
+	Open terminal in Cursor (Ctrl + `):
+	conda activate cppjupyter
+	jupyter kernelspec list
+Open file -> .ipynb file
+	Top-right → Select Kernel → choose: jupyter kernel ->
+	C++11 (xeus-cling)
+	
+
+Access:
+Access Windows files from Linux:
+	/mnt/c/Users/chaha/Documents
+Access Linux files from Windows:
+	\\wsl$\Ubuntu\home\chaha
+	
+
+C++ notebook / .cpp file
+// implement topological sort using bfs (kahn's algorithm)
+Ctrl + K → Enter
+
+ctrl + Kernel
+explain this code step by step

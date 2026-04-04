@@ -1,0 +1,23 @@
+Cursor setup using ollama phi3 locally:
+
+
+
+@e:\AI\ this is my local chat application. when i run it with python -m uvicorn app:app --port 5000, it starts successfully. I can signup with username and password correctly in browser http://127.0.0.1:5000 . But when i login, it doesn't show chat page in browser. Looks like there is something broken, can you check and suggest. All the files with prefix v*_ are backup files and can be ignored. Only these files are part of project:
+E:\AI
+│
+├── app.py
+├── database.py
+├── models.py
+├── auth.py        ←(security + helper functions)
+│
+├── static
+│   ├── app.js
+│   ├── sidebar.js
+│   ├── auth.js    ←(login/signup logic)
+│   └── styles.css
+│
+└── templates
+    ├── index.html
+    └── login.html 
+	
+app.py database.py models.py auth.py static/app.js  static/sidebar.js static/auth.js static/styles.css templates/index.html templates/login.html 

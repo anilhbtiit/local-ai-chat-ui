@@ -1,0 +1,30 @@
+rough work:
+
+
+
+DAG: 
+
+traverse graph in dfs manner
+can detect cycle along with topo sort
+
+topo sort: indegree
+create a queue with 0 indegree nodes
+if(queue==empty)
+	cycle detected
+while(queue.start())
+start with 0 indegree
+	take first node with 0 indegree, add it to output list, check its adjacency list and reduce each adjacent node's indegree by 1
+		if any node's indegree becomes 0, add it to the queue
+cycle ? 
+
+
+for (int u=0; u < V; u++)
+	std::vector<bool>recur (V+2, false);
+	recur[u]=true;
+	for (auto a = adj[u])
+		indegree[a]++;
+		if(recur[a])
+			cycle=true;
+	recur.reset();
+		
+adj list  for (i==g[v][0]; i<size(g[v]);i++)
